@@ -7,21 +7,30 @@ This repository demonstrates how to create an Azure Kubernetes Service (AKS) clu
 
     AKS is Azure’s managed Kubernetes service.
     Terraform is used as Infrastructure as Code (IaC) to provision AKS resources in a repeatable and automated way.
+    
+==================================================================================================
 
 🏗 Architecture
 
 Terraform CLI
+
      |
      v
 Azure Resource Group
+
      |
      v
 Virtual Network (VNet)
+
      |
      v
 AKS Cluster
+
  ├── Managed Control Plane (Azure-managed)
+ 
  └── Node Pool (VM Scale Set)
+
+===================================================================================================
 
 🔄 Terraform Workflow
 
@@ -30,14 +39,24 @@ terraform plan    → Review execution plan
 terraform apply   → Create AKS resources
 terraform destroy → Delete all resources
 
+===================================================================================================
+
 📂 Project Structure
 
 aks-terraform/
+
 │── provider.tf
+
 │── main.tf
+
 │── variables.tf
+
 │── outputs.tf
+
 │── README.md
+
+
+==================================================================================================
 
 ✅ Prerequisites
 
@@ -51,7 +70,11 @@ Login to Azure
 az login
 az account set --subscription "<SUBSCRIPTION_ID>"
 
+================================================================================================
+
 ⚙️ Terraform Code
+
+
 📄 provider.tf
 
 terraform {
@@ -69,6 +92,7 @@ provider "azurerm" {
   features {}
 }
 
+==============================================================================================
 📄 variables.tf
 
 variable "resource_group_name" {
@@ -83,7 +107,7 @@ variable "location" {
 
 variable "aks_name" {
   description = "AKS cluster name"
-  default     = "demo-aks"
+  default     = "prd-aks"
 }
 
 variable "node_count" {
@@ -93,8 +117,10 @@ variable "node_count" {
 
 variable "vm_size" {
   description = "VM size for AKS nodes"
-  default     = "Standard_DS2_v2"
+  default     = "Standard_D2ls_v7"
 }
+
+==================================================================================================
 
 📄 main.tf
 
@@ -107,12 +133,12 @@ resource "azurerm_kubernetes_cluster" "aks_name" {
   name                = "${var.resource_group_name}-aks"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = "demoaks"
+  dns_prefix          = "prdaks"
 
   default_node_pool {
     name       = "system"
     node_count = 1
-    vm_size    = "Standard_DC2s_v3"
+    vm_size    = "Standard_D2ls_v7"
 
     upgrade_settings {
      max_surge = "1"
@@ -130,7 +156,7 @@ resource "azurerm_kubernetes_cluster" "aks_name" {
   }
 
   tags = {
-    environment = "Demo"
+    environment = "prd"
   }
 }
 
@@ -141,11 +167,15 @@ output "aks_name" {
   value       = azurerm_kubernetes_cluster.aks.name
 }
 
+==============================================================================================
+
 🚀 Deployment Steps
 
 terraform init
 terraform plan
 terraform apply
+
+==============================================================================================
 
 ⏳ AKS creation takes approximately 5–10 minutes.
 🔗 Connect to AKS
@@ -155,6 +185,8 @@ az aks get-credentials \
   --name demo-aks
 
 kubectl get nodes
+
+=============================================================================================
 
 🧩 Azure Resources Created
 
@@ -167,6 +199,8 @@ kubectl get nodes
     Managed Identity
     Network Security Groups
 
+=============================================================================================
+
 ⭐ Best Practices
 
     Use remote backend (Azure Storage Account)
@@ -174,6 +208,8 @@ kubectl get nodes
     Use multiple node pools
     Enable autoscaling
     Enable RBAC and monitoring
+    
+=============================================================================================
 
 🧹 Cleanup
 
