@@ -13,12 +13,15 @@ This repository demonstrates how to create an Azure Kubernetes Service (AKS) clu
 🏗 Architecture
 
 Terraform CLI
+
         |
         V
 Azure Resource Group
+
         |
         V
 Virtual Network (VNet)
+
         |
         V
 AKS Cluster
