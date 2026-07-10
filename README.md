@@ -6,32 +6,14 @@ This repository demonstrates how to create an Azure Kubernetes Service (AKS) clu
 
 ===========================================================
 
-📌 Overview
+📌 **Overview**
 
     AKS is Azure’s managed Kubernetes service.
     Terraform is used as Infrastructure as Code (IaC) to provision AKS resources in a repeatable and automated way.
     
-===========================================================
-
-🏗 Architecture
-
-Terraform CLI
-                                                                                                                                       |                                                                                                                                V
-Azure Resource Group
-    |
-    |
-Virtual Network (VNet)
-    |
-    |
-AKS Cluster
-
- ├── Managed Control Plane (Azure-managed)
- 
- └── Node Pool (VM Scale Set)
-
 ================================================================
 
-🔄 Terraform Workflow
+🔄 **Terraform Workflow**
 
 terraform init    → Initialize Terraform
 terraform plan    → Review execution plan
@@ -40,7 +22,7 @@ terraform destroy → Delete all resources
 
 ================================================================
 
-📂 Project Structure
+📂 **Project Structure**
 
 aks-terraform/
 
@@ -57,7 +39,7 @@ aks-terraform/
 
 =================================================================
 
-✅ Prerequisites
+✅ **Prerequisites**
 
     Azure Subscription
     Terraform >= 1.3
@@ -71,7 +53,7 @@ az account set --subscription "<SUBSCRIPTION_ID>"
 
 ==================================================================
 
-⚙️ Terraform Code
+⚙️ **Terraform Code**
 
 
 📄 provider.tf
@@ -92,6 +74,7 @@ provider "azurerm" {
 }
 
 ===================================================================
+
 📄 variables.tf
 
 variable "resource_group_name" {
@@ -168,7 +151,7 @@ output "aks_name" {
 
 ==============================================================
 
-🚀 Deployment Steps
+🚀 **Deployment Steps**
 
 terraform init
 terraform plan
@@ -200,7 +183,7 @@ kubectl get nodes
 
 =================================================================
 
-⭐ Best Practices
+⭐ **Best Practices**
 
     Use remote backend (Azure Storage Account)
     Separate Terraform modules
