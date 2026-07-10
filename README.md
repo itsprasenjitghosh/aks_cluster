@@ -15,15 +15,12 @@ This repository demonstrates how to create an Azure Kubernetes Service (AKS) clu
 Terraform CLI
 
         |
-        V
 Azure Resource Group
 
         |
-        V
 Virtual Network (VNet)
 
         |
-        V
 AKS Cluster
 
  ├── Managed Control Plane (Azure-managed)
